@@ -26,8 +26,8 @@ const routes = createBrowserRouter([
         element: <Dashboard />
       },
       {
-        path:'settings',
-        element:<Settings/>
+        path: 'settings',
+        element: <Settings />
       }
     ]
   }

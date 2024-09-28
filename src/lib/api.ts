@@ -8,6 +8,7 @@ const Axios = axios.create({
 
 export const handelSignup = async (user: InputUser): Promise<IResponse> => {
     const response = await Axios.post("/signup", user)
+
     return response.data
 }
 
@@ -33,5 +34,16 @@ export const handleUpdatePassword = async(password:IUpdatePassword):Promise<IRes
 
 export const handleUpdateLogin = async(login:IUpdateLogin): Promise<IResponse> => {
     const response = await Axios.patch("/update/login",login)
+    return response.data
+}
+
+export const handlePictureUpload = async(data:FormData): Promise<IResponse> =>{
+    const response  = await Axios.patch("/profile/upload",data)
+    return response.data
+
+}
+
+export const handleCoverUpload = async(data:FormData): Promise<IResponse> => {
+    const response = await Axios.patch("/cover/upload" ,data)
     return response.data
 }
