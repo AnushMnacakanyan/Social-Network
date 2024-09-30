@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { IUser } from "../../../lib/types"
 import { handleSearch } from "../../../lib/api"
 import { BASE_URL, DEFAULT_PIC } from "../../../lib/constant"
+import { Link } from "react-router-dom"
 
 export const Search = () => {
     const [users, SetUsers] = useState<IUser[]>([])
@@ -33,10 +34,12 @@ export const Search = () => {
             {
                 users.map(user=>
                     <div key={user.id}>
+                        <Link to={`/profile/${user.id}`}>
                         <img 
                         src={user.picture? BASE_URL + user.picture : DEFAULT_PIC}
                         />
                         <p>{user.name } {user.surname}</p>
+                        </Link>
                     </div>
                 )
             }

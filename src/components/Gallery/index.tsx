@@ -8,7 +8,7 @@ interface IProps {
 
 export const Gallery: React.FC<IProps> = ({ posts }) => {
     return <>
-        <p>you have {posts.length} posts</p>
+        {/* <p>you have {posts.length} posts</p> */}
         <div className="list">
             {
                 posts.map(post =>

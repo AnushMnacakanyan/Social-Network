@@ -58,7 +58,17 @@ export const handlePostCreation = async (data: FormData): Promise<IResponse> => 
     return response.data
 }
 
-export const handleSearch = async(text:string):Promise<IResponse> =>{
+export const handleSearch = async (text: string): Promise<IResponse> => {
     const response = await Axios.get("search/" + text)
+    return response.data
+}
+
+export const handleIsPrivate = async (): Promise<IResponse> => {
+    const response = await Axios.patch("account/set")
+    return response.data
+}
+
+export const handleAccound = async (id: string | undefined): Promise<IResponse> => {
+    const response = await Axios.get("account/" + id)
     return response.data
 }

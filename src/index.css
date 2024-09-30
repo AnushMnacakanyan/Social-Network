@@ -1,11 +1,11 @@
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body, html {
+body,
+html {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -71,7 +71,7 @@ nav button {
   color: white;
   cursor: pointer;
   transition: 0.6s;
-  margin-top: -15px;
+  margin-top: -2px;
 }
 
 a.active {
@@ -92,8 +92,8 @@ a.active {
 
 .div__update {
   width: 500px;
-  max-width: 100%; 
-  margin: 10px; 
+  max-width: 100%;
+  margin: 10px;
 }
 
 .form__update {
@@ -137,32 +137,36 @@ a.active {
   margin-bottom: 15px;
 }
 
-@media (max-width: 768px) {
-  .containeer {
-    padding: 0 2%;
-  }
-
-  .div__update {
-    width: 100%; 
-    margin-bottom: 20px;
-  }
-
-  .form__update {
-    padding: 15px; 
-  }
-}
 
 
-.list{
+.list {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
   gap: 20px;
 }
 
-.list img{
+.list img {
   width: 150px;
   height: 150px;
   border-radius: 4px;
   object-fit: cover;
+
+}
+
+
+
+@media (max-width: 768px) {
+  .containeer {
+    padding: 0 2%;
+  }
+
+  .div__update {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .form__update {
+    padding: 15px;
+  }
 }

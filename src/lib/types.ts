@@ -45,3 +45,13 @@ export interface IPost{
     title:string
     picture:string
 }
+
+export interface IAccount extends IUser{
+    conection:{
+        blockedMe:boolean
+        didIBlock:boolean
+        following:boolean
+        followsMe:boolean
+    },
+    posts:IPost[] | undefined
+}
