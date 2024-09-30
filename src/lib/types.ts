@@ -39,3 +39,9 @@ export interface IUpdateLogin{
     password:string
     login:string
 }
+
+export interface IPost{
+    id:number
+    title:string
+    picture:string
+}

@@ -30,7 +30,7 @@ export function Login() {
                     setSucces("Login successful! Redirecting to your profile...")
                     setTimeout(() => {
                         navigate("/profile")
-                    }, 2000)
+                    }, 1000)
                 }
             })
          

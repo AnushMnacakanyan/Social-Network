@@ -30,7 +30,7 @@ export function Signup() {
                     setSucces("Finally!Thank you for being awesome!")
                     setTimeout(() => {
                         navigate("/login")
-                    }, 2000)
+                    }, 1000)
                 }
             })
             .catch(console.warn)

@@ -22,28 +22,43 @@ export const handleVerify = async (): Promise<IResponse> => {
     return response.data
 }
 
-export const handleLogout = async():Promise<IResponse> => {
+export const handleLogout = async (): Promise<IResponse> => {
     const response = await Axios.post("/logout")
     return response.data
 }
 
-export const handleUpdatePassword = async(password:IUpdatePassword):Promise<IResponse> => {
-    const response = await Axios.patch("/update/password",password)
+export const handleUpdatePassword = async (password: IUpdatePassword): Promise<IResponse> => {
+    const response = await Axios.patch("/update/password", password)
     return response.data
 }
 
-export const handleUpdateLogin = async(login:IUpdateLogin): Promise<IResponse> => {
-    const response = await Axios.patch("/update/login",login)
+export const handleUpdateLogin = async (login: IUpdateLogin): Promise<IResponse> => {
+    const response = await Axios.patch("/update/login", login)
     return response.data
 }
 
-export const handlePictureUpload = async(data:FormData): Promise<IResponse> =>{
-    const response  = await Axios.patch("/profile/upload",data)
+export const handlePictureUpload = async (data: FormData): Promise<IResponse> => {
+    const response = await Axios.patch("/profile/upload", data)
     return response.data
 
 }
 
-export const handleCoverUpload = async(data:FormData): Promise<IResponse> => {
-    const response = await Axios.patch("/cover/upload" ,data)
+export const handleCoverUpload = async (data: FormData): Promise<IResponse> => {
+    const response = await Axios.patch("/cover/upload", data)
+    return response.data
+}
+
+export const handleGetPosts = async (): Promise<IResponse> => {
+    const response = await Axios.get("/posts")
+    return response.data
+}
+
+export const handlePostCreation = async (data: FormData): Promise<IResponse> => {
+    const response = await Axios.post("/posts", data)
+    return response.data
+}
+
+export const handleSearch = async(text:string):Promise<IResponse> =>{
+    const response = await Axios.get("search/" + text)
     return response.data
 }

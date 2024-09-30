@@ -151,3 +151,18 @@ a.active {
     padding: 15px; 
   }
 }
+
+
+.list{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+}
+
+.list img{
+  width: 150px;
+  height: 150px;
+  border-radius: 4px;
+  object-fit: cover;
+}
