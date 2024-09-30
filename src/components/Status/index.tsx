@@ -15,8 +15,7 @@ export const Status = () => {
       })
     }
 
-    return (
-        <div>
+    return <div className='status'>
             <h3>Status: {isPrivate ? 'Private' : 'Public'}</h3>
             <img
                 onClick={handleStatus}
@@ -24,5 +23,5 @@ export const Status = () => {
                 style={{width:100,height:100}}
             />
         </div>
-    );
+    
 }

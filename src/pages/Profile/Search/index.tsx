@@ -20,29 +20,32 @@ export const Search = () => {
         }
     }, [text])
 
-    return <div style={{ padding: 5 }}>
-        <h3>Search</h3>
-        <input
-            placeholder="search for a friends ..."
-            className="form-control"
-            value={text}
-            onChange={e => setText(e.target.value)}
-        />
+    return (
+        <div className="search-container">
+            <h3>Search</h3>
+            <input
+                placeholder="Search for a friend..."
+                className="search-input"
+                value={text}
+                onChange={e => setText(e.target.value)}
+            />
 
-        {users.length > 0 && <small>{users.length} users found</small>}
-        <div className="list">
-            {
-                users.map(user=>
-                    <div key={user.id}>
-                        <Link to={`/profile/${user.id}`}>
-                        <img 
-                        src={user.picture? BASE_URL + user.picture : DEFAULT_PIC}
-                        />
-                        <p>{user.name } {user.surname}</p>
-                        </Link>
-                    </div>
-                )
-            }
+            {users.length > 0 && <small>{users.length} users found</small>}
+
+            <div className="list">
+                {
+                    users.map(user =>
+                        <div key={user.id}>
+                            <Link to={`/profile/${user.id}`}>
+                                <img
+                                    src={user.picture ? BASE_URL + user.picture : DEFAULT_PIC}
+                                />
+                                <p>{user.name} {user.surname}</p>
+                            </Link>
+                        </div>
+                    )
+                }
+            </div>
         </div>
-    </div>
+    )
 }

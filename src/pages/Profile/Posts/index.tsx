@@ -31,24 +31,27 @@ export const Posts = () => {
                 setList(response.payload as IPost[])
             })
     }, [])
-    return <>
-        <h3>Posts</h3>
-        <p>you have  {list.length} posts</p>
 
-        <input
-            type="file"
-            style={{ display: "none" }}
-            ref={photo}
-            onChange={handleUpload}
-        />
-        <input
-            className="form-control"
-            placeholder="what's on your mind?"
-            value={text}
-            onChange={e => setText(e.target.value)}
-        />
-        <button onClick={() => photo.current?.click()} className="btn btn-s btn-info my-2">upload</button>
+    return (
+        <div className="posts-container">
+            <h3>Posts</h3>
+            <p>You have {list.length} posts</p>
 
-        <Gallery posts={list} />
-    </>
+            <input
+                type="file"
+                style={{ display: "none" }}
+                ref={photo}
+                onChange={handleUpload}
+            />
+            <input
+                className="form-control"
+                placeholder="What's on your mind?"
+                value={text}
+                onChange={e => setText(e.target.value)}
+            />
+            <button onClick={() => photo.current?.click()} className="btn btn-s btn-info my-2">Upload</button>
+
+            <Gallery posts={list} />
+        </div>
+    )
 }
