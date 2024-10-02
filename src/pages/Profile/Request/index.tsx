@@ -19,8 +19,8 @@ export const Requests = () => {
         handleAcceptRequest(id)
             .then(response => {
                 setRequests([...requests.filter(request => request.id != id)])
-            
-                
+
+
             })
     }
     const handleDecline = (id: number | undefined) => {
@@ -30,21 +30,22 @@ export const Requests = () => {
             })
 
     }
-    return <>
-        {requests.map(request =>
-            <div key={request.id}>
-                <div>
-                    <img
-                        src={request.user.picture ? BASE_URL + request.user.picture : DEFAULT_PIC}
-                        style={{ width: 100, height: 100 }}
-                    />
+    return <div className='request'>
+        {requests.map((request) => (
+            <div className="request-card" key={request.id}>
+                <img
+                    src={request.user.picture ? BASE_URL + request.user.picture : DEFAULT_PIC}
+                    alt="User"
+                />
+                <div className="request-info">
                     <h3>{request.user.name} {request.user.surname}</h3>
                 </div>
-                <div>
+                <div className="request-actions">
                     <button onClick={() => handleAccept(request.id)}>Accept</button>
-                    <button onClick={() => handleDecline(request.id)} >Decline</button>
+                    <button className="decline" onClick={() => handleDecline(request.id)}>Decline</button>
                 </div>
             </div>
-        )}
-    </>
+        ))}
+    </div>
+
 }
