@@ -34,7 +34,7 @@ export const Profile = () => {
             <NavLink to="/profile/followers" end>Followers</NavLink>
             <NavLink to="/profile/followings" end>Followings</NavLink>
             {account.isPrivate ? (
-                <NavLink to="/profile/requests" end>Requests</NavLink>
+                <NavLink to="/profile/request" end>Requests</NavLink>
             ) : null}
             <button onClick={() => logout()}>Logout</button>
         </nav>

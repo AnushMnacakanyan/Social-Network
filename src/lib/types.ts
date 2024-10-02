@@ -15,7 +15,7 @@ export type InputUser = Omit<IUser, "id" | "isPrivate" | "cover" | "picture">
 
 export type InputLogin = Omit<IUser, "id" | "name" | "surname" | "isPrivate" | "cover" | "picture">
 
-export type IRequest = Omit<IUser , "followers" | "followig" | "password" | "login">
+// export type IRequest = O mit<IUser , "followers" | "followig" | "password" | "login">
 
 export interface IResponse {
     status: string
@@ -60,4 +60,9 @@ export interface IAccount extends IUser {
         followsMe: boolean
         requested: boolean
     }
+}
+
+export  interface IRequest {
+    id:number
+    user:IUser
 }

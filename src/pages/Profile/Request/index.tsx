@@ -9,6 +9,7 @@ export const Requests = () => {
         handleGetRequest()
             .then(response => {
                 if (response.payload) {
+                    console.log(response.payload);
                     setRequests(response.payload as IRequest[]);
                 }
             });
@@ -18,6 +19,8 @@ export const Requests = () => {
         handleAcceptRequest(id)
             .then(response => {
                 setRequests([...requests.filter(request => request.id != id)])
+            
+                
             })
     }
     const handleDecline = (id: number | undefined) => {
@@ -32,10 +35,10 @@ export const Requests = () => {
             <div key={request.id}>
                 <div>
                     <img
-                        src={request.picture ? BASE_URL + request.picture : DEFAULT_PIC}
+                        src={request.user.picture ? BASE_URL + request.user.picture : DEFAULT_PIC}
                         style={{ width: 100, height: 100 }}
                     />
-                    <h3>{request.name} {request.surname}</h3>
+                    <h3>{request.user.name} {request.user.surname}</h3>
                 </div>
                 <div>
                     <button onClick={() => handleAccept(request.id)}>Accept</button>
