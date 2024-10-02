@@ -1,27 +1,30 @@
 import { useState } from 'react';
 import { handleIsPrivate } from '../../lib/api';
+import { useOutletContext } from 'react-router-dom';
+import { IContextType } from '../../lib/types';
 
 export const Status = () => {
-    const [isPrivate, setIsPrivate] = useState<boolean>(false); 
-
-    const handleStatus = () => {
-      handleIsPrivate()
-      .then(response=>{
-              if(response.payload == 1){
-                setIsPrivate(true)
-              }else{
-                setIsPrivate(false)
-              }
+  const [isPrivate, setIsPrivate] = useState<boolean>(false);
+  const { account, setAccount } = useOutletContext<IContextType>()
+  const switchTo = () => {
+    handleIsPrivate()
+      .then(response => {
+        setAccount({ ...account, isPrivate: response.payload as number })
       })
-    }
+  }
+  return <div className='status'>
+    <p>Hey {account.name}, your account is <strong>{account.isPrivate == 1 ? "private" : "public"}</strong></p>
+    <img
+      className="icon"
+      onClick={switchTo}
+      src={
+        account.isPrivate ?
+          "https://cdn1.iconfinder.com/data/icons/internet-security-26/64/x-01-512.png"
+          :
+          "https://cdn1.iconfinder.com/data/icons/internet-security-26/64/x-11-512.png"
+      }
+    />
 
-    return <div className='status'>
-            <h3>Status: {isPrivate ? 'Private' : 'Public'}</h3>
-            <img
-                onClick={handleStatus}
-                src={isPrivate ?  "https://cdn3.iconfinder.com/data/icons/wpzoom-developer-icon-set/500/102-512.png":"https://cdn2.iconfinder.com/data/icons/pittogrammi/142/92-512.png" }
-                style={{width:100,height:100}}
-            />
-        </div>
-    
+  </div>
+
 }

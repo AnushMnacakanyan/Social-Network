@@ -20,9 +20,9 @@ export const Profile = () => {
 
     const logout = () => {
         handleLogout()
-        .then(response=>{
-            navigate("/login")
-        })
+            .then(response => {
+                navigate("/login")
+            })
     }
 
     return account && <>
@@ -33,7 +33,10 @@ export const Profile = () => {
             <NavLink to="/profile/posts" end>Posts</NavLink>
             <NavLink to="/profile/followers" end>Followers</NavLink>
             <NavLink to="/profile/followings" end>Followings</NavLink>
-            <button onClick={()=>logout()}>Logout</button>
+            {account.isPrivate ? (
+                <NavLink to="/profile/requests" end>Requests</NavLink>
+            ) : null}
+            <button onClick={() => logout()}>Logout</button>
         </nav>
 
         <Outlet

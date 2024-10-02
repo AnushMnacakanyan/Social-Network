@@ -1,17 +1,21 @@
 export interface IUser {
-    id: string
-    name: string
-    surname: string
-    login: string
-    password: string
-    isPrivate: boolean
-    cover: string
-    picture: string
+    id?: number;
+    name: string;
+    surname: string;
+    login: string;
+    password: string;
+    picture?: string;
+    cover?: string;
+    followers?: IUser[];
+    following?: IUser[];
+    isPrivate?: number;
 }
 
 export type InputUser = Omit<IUser, "id" | "isPrivate" | "cover" | "picture">
 
 export type InputLogin = Omit<IUser, "id" | "name" | "surname" | "isPrivate" | "cover" | "picture">
+
+export type IRequest = Omit<IUser , "followers" | "followig" | "password" | "login">
 
 export interface IResponse {
     status: string
@@ -35,23 +39,25 @@ export interface IUpdatePassword {
     newpwd: string
 }
 
-export interface IUpdateLogin{
-    password:string
-    login:string
+export interface IUpdateLogin {
+    password: string
+    login: string
 }
 
-export interface IPost{
-    id:number
-    title:string
-    picture:string
+export interface IPost {
+    id: number
+    title: string
+    picture: string
 }
 
-export interface IAccount extends IUser{
-    conection:{
-        blockedMe:boolean
-        didIBlock:boolean
-        following:boolean
-        followsMe:boolean
-    },
-    posts:IPost[] | undefined
+export interface IAccount extends IUser {
+    posts?: IPost[]
+    available: boolean
+    connection: {
+        blockedMe: boolean
+        didIBlock: boolean
+        following: boolean
+        followsMe: boolean
+        requested: boolean
+    }
 }

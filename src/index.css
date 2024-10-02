@@ -175,6 +175,8 @@ a.active {
 }
 
 .status img {
+  width: 150px;
+  height: 150px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
