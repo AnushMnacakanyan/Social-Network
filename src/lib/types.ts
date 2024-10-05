@@ -9,6 +9,7 @@ export interface IUser {
     followers?: IUser[];
     following?: IUser[];
     isPrivate?: number;
+    
 }
 
 export type InputUser = Omit<IUser, "id" | "isPrivate" | "cover" | "picture">
@@ -48,6 +49,8 @@ export interface IPost {
     id: number
     title: string
     picture: string
+    likes:IUser[]
+    isLiked:boolean
 }
 
 export interface IAccount extends IUser {

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { handleGetPosts, handlePostCreation } from "../../../lib/api"
+import { handleDeletePost, handleGetPosts, handlePostCreation } from "../../../lib/api"
 import { IPost } from "../../../lib/types"
 import { Gallery } from "../../../components/Gallery"
 
@@ -23,6 +23,14 @@ export const Posts = () => {
                     })
             }
         }
+    }
+    const handleDelete = (id:number) => {
+        handleDeletePost(id)
+        .then(response=> {
+            console.log(response);
+            
+            setList([...list.filter(post => post.id != id)])
+        })
     }
     useEffect(() => {
         handleGetPosts()
@@ -50,8 +58,7 @@ export const Posts = () => {
                 onChange={e => setText(e.target.value)}
             />
             <button onClick={() => photo.current?.click()} className="btn btn-s btn-info my-2">Upload</button>
-
-            <Gallery posts={list} />
+            <Gallery posts={list} onDelete={handleDelete} />
         </div>
     )
 }

@@ -3,13 +3,15 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 import { useNavigate, useParams } from 'react-router-dom';
 import { Gallery } from '../../../components/Gallery';
 import { IAccount } from '../../../lib/types';
-import { handleAccound, handleCancelRequest, handleSendFollow, handleUnfollow } from '../../../lib/api';
+import { handleAccound, handleBlock, handleCancelRequest, handleSendFollow, handleUnfollow } from '../../../lib/api';
 import { BASE_URL, DEFAULT_PIC } from '../../../lib/constant';
 export function Account() {
     const { id } = useParams();
     const [found, setFound] = useState<IAccount | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [blockedMe, setBlockedMe] = useState<string>("")
     const navigate = useNavigate();
+
     const handleRequest = () => {
         if (found) {
             if (found.connection.following) {
@@ -86,6 +88,64 @@ export function Account() {
                 .catch(() => setLoading(false));
         }
     };
+    const changePostStatus = (id: number) => {
+        if (found) {
+            const temp = { ...found }
+            const post = temp.posts?.find(p => p.id == id)
+            if (post) {
+                post.isLiked = !post.isLiked
+                setFound(temp)
+            }
+        }
+    }
+    const handleBlockUser = () => {
+        if (found) {
+            if (found.connection.blockedMe) {
+                setBlockedMe("you are blocked")
+            } else if (found.connection.didIBlock) {
+                block()
+            } else {
+
+                unblock()
+            }
+        }
+    }
+    const block = () => {
+        if (found && found.id) {
+            handleBlock(found.id)
+                .then(response => {
+                    if (response.message == "blocked") {
+                        setFound({
+                            ...found,
+                            connection: { ...found.connection, didIBlock: true },
+                            picture: "",
+                            posts: []
+                        })
+                    } else {
+                        setFound(response.payload as IAccount)
+                    }
+
+                })
+        }
+    }
+    const unblock = () => {
+        if (found && found.id) {
+            handleBlock(found.id)
+                .then(response => {
+                    if (response.message == "unblocked") {
+                        setFound(response.payload as IAccount)
+                    } else {
+                        setFound({
+                            ...found,
+                            connection: { ...found.connection, didIBlock: true },
+                            picture: "",
+                            posts: []
+                        })
+                    }
+
+                })
+        }
+    }
     useEffect(() => {
         if (id) {
             handleAccound(id)
@@ -98,6 +158,7 @@ export function Account() {
                 });
         }
     }, [id, navigate]);
+
     return (
         found && <div className="vh-100" style={{ backgroundColor: '#eee' }}>
             <MDBContainer className="container py-5 h-100">
@@ -112,7 +173,8 @@ export function Account() {
                                 <MDBTypography tag="h4">{found.name} {found.surname}</MDBTypography>
                                 <MDBCardText className="text-muted mb-4">
                                 </MDBCardText>
-                                {found.posts && <Gallery posts={found.posts} />}
+                                {found.posts && <Gallery posts={found.posts} onUpdatePost={changePostStatus} />}
+                                <p>{blockedMe}</p>
                                 <button
                                     onClick={handleRequest}
                                     className="btn btn-info"
@@ -128,6 +190,17 @@ export function Account() {
                                                     : "Follow"
                                     }
                                 </button>
+                                <button
+                                    className='btn btn-danger'
+                                    onClick={() => { handleBlockUser() }}
+                                >
+                                    {
+                                        found.connection.didIBlock
+                                            ? "UnBlock"
+                                            : "Block"
+                                    }
+                                </button>
+
                                 <div className="d-flex justify-content-between text-center mt-5 mb-2">
                                     <div>
                                         <MDBCardText className="mb-1 h5">8471</MDBCardText>
