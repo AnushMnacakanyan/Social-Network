@@ -2,8 +2,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { handleGetPostId } from '../lib/api';
-import { IPost } from '../lib/types';
+import { handleComment, handleDeleteComment, handleGetPostId } from '../lib/api';
+import { IComment, IPost } from '../lib/types';
 import { BASE_URL } from '../lib/constant';
 const style = {
     position: 'absolute',
@@ -20,17 +20,39 @@ const style = {
 export interface IProps {
     postId: number
     handleClose: () => void
+    comments: IComment[]
 }
-export function Post({ postId, handleClose }: IProps) {
+export function Post({ postId, handleClose, comments }: IProps) {
     const [post, setPost] = useState<IPost | null>(null)
+    const [text, setText] = useState<string>("")
+
+    const handleDelComment = (id: number) => {
+        handleDeleteComment(id)
+            .then(response => {
+                console.log(response);
+                if (post) {
+                    const updateCom = post.comments.filter(com => com.id != id)
+                    setPost({ ...post, comments: updateCom })
+                }
+            })
+    }
+
+
+    const handleSubmit = () => {
+        handleComment(postId, text)
+            .then(response => {
+                setText("")
+            })
+    }
+
     useEffect(() => {
         handleGetPostId(postId)
             .then(response => {
                 setPost(response.payload as IPost)
-                console.log(post);
 
             })
     })
+
     return (
         <div>
             <Modal
@@ -56,6 +78,7 @@ export function Post({ postId, handleClose }: IProps) {
                         </div>
 
                         <div className="likes-container">
+                            <h3>likes</h3>
                             {post?.likes.map(like => (
                                 <div key={like.id} className="like-item">
                                     <img
@@ -65,6 +88,34 @@ export function Post({ postId, handleClose }: IProps) {
                                     <p>{like.name} {like.surname}</p>
                                 </div>
                             ))}
+                        </div>
+                        <div>
+                            <h3>comment</h3>
+                            {post?.comments ? (
+                                post?.comments.map(comment => (
+                                    <div key={comment.id} className="comment-item">
+                                        <img src={BASE_URL + comment.user.picture} style={{ width: 50, height: 50 }} />
+                                        <p>{comment.user.name} {comment.user.name}</p>
+                                        <p>{comment.content}</p>
+                                        <button onClick={() => handleDelComment(comment.id)}>Delete</button>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No comments yet.</p>
+                            )}
+                        </div>
+                        <div>
+                            <form onSubmit={(e) => {
+                                e.preventDefault()
+                                handleSubmit()
+                            }}>
+                                <input
+                                    type="text"
+                                    placeholder="What you think?"
+                                    value={text}
+                                    onChange={e => setText(e.target.value)}
+                                />
+                            </form>
                         </div>
                     </div>
                 </Box>

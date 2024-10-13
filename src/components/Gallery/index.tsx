@@ -1,9 +1,8 @@
 import { useState } from "react"
-import { handlePostReaction } from "../../lib/api"
+import { handleComment, handlePostReaction } from "../../lib/api"
 import { BASE_URL } from "../../lib/constant"
-import { IPost } from "../../lib/types"
+import { IComment, IPost } from "../../lib/types"
 import { Post } from "../Post"
-import { colors } from "@mui/material"
 
 interface IProps {
     posts: IPost[]
@@ -13,9 +12,13 @@ interface IProps {
 
 export const Gallery: React.FC<IProps> = ({ posts, onUpdatePost, onDelete }) => {
     const [currentPost, setCurrentPost] = useState<number>(-1)
+    const [text, setText] = useState<string>("")
+    const [comment, setComment] = useState<IComment[]>([])
+    const [error,setError] = useState<string>("")
+
     const reactPost = (id: number) => {
         handlePostReaction(id)
-            .then(response => {
+            .then(() => {
                 if (onUpdatePost) {
                     onUpdatePost(id)
                 }
@@ -45,12 +48,18 @@ export const Gallery: React.FC<IProps> = ({ posts, onUpdatePost, onDelete }) => 
 
                             }
                         />
-                        <button  onClick={() => onDelete(post.id)}>delete</button>
+                        <button onClick={() => {
+                            if(onDelete){
+                                onDelete(post.id)
+                            }
+                        }}>delete</button>
+
+               
                     </div>
                 )
             }
         </div>
-        {currentPost != -1 && <Post postId={currentPost} handleClose={() => setCurrentPost(-1)} />}
+        {currentPost != -1 && <Post postId={currentPost} comments={comment} handleClose={() => setCurrentPost(-1)} />}
 
     </>
 }

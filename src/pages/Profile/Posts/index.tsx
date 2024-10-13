@@ -57,6 +57,7 @@ export const Posts = () => {
                 value={text}
                 onChange={e => setText(e.target.value)}
             />
+            <br />
             <button onClick={() => photo.current?.click()} className="btn btn-s btn-info my-2">Upload</button>
             <Gallery posts={list} onDelete={handleDelete} />
         </div>

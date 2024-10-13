@@ -51,6 +51,7 @@ export interface IPost {
     picture: string
     likes:IUser[]
     isLiked:boolean
+    comments: IComment[]
 }
 
 export interface IAccount extends IUser {
@@ -68,4 +69,12 @@ export interface IAccount extends IUser {
 export  interface IRequest {
     id:number
     user:IUser
+}
+
+export interface IComment{
+    id:number
+    postId:number
+    content:string
+    user:IUser
+    userId:number
 }

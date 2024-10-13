@@ -161,65 +161,63 @@ export function Account() {
 
     return (
         found && <div className="vh-100" style={{ backgroundColor: '#eee' }}>
-            <MDBContainer className="container py-5 h-100">
-                <MDBRow className="justify-content-center align-items-center h-100">
-                    <MDBCol md="12" xl="4">
-                        <MDBCard style={{ borderRadius: '15px' }}>
-                            <MDBCardBody className="text-center">
-                                <div className="mt-3 mb-4">
-                                    <MDBCardImage src={found.picture ? BASE_URL + found.picture : DEFAULT_PIC}
-                                        className="rounded-circle" fluid style={{ width: '100px' }} />
-                                </div>
-                                <MDBTypography tag="h4">{found.name} {found.surname}</MDBTypography>
-                                <MDBCardText className="text-muted mb-4">
-                                </MDBCardText>
-                                {found.posts && <Gallery posts={found.posts} onUpdatePost={changePostStatus} />}
-                                <p>{blockedMe}</p>
-                                <button
-                                    onClick={handleRequest}
-                                    className="btn btn-info"
-                                    disabled={loading}
-                                >
-                                    {
-                                        found.connection.following
-                                            ? "Unfollow"
-                                            : found.connection.followsMe
-                                                ? "Follow Back"
-                                                : found.connection.requested
-                                                    ? "Cancel Request"
-                                                    : "Follow"
-                                    }
-                                </button>
-                                <button
-                                    className='btn btn-danger'
-                                    onClick={() => { handleBlockUser() }}
-                                >
-                                    {
-                                        found.connection.didIBlock
-                                            ? "UnBlock"
-                                            : "Block"
-                                    }
-                                </button>
+            <MDBCol md="12" xl="6">
+                <MDBCard style={{ borderRadius: '15px', width: '100%' }}>
+                    <MDBCardBody className="text-center">
+                        <div className="mt-3 mb-4">
+                            <MDBCardImage src={found.picture ? BASE_URL + found.picture : DEFAULT_PIC}
+                                className="rounded-circle" fluid style={{ width: '120px' }} />
+                        </div>
+                        <MDBTypography tag="h4">{found.name} {found.surname}</MDBTypography>
+                        <MDBCardText className="text-muted mb-4">
+                            You have {found.posts?.length} posts
+                        </MDBCardText>
+                        {found.posts && <Gallery posts={found.posts} onUpdatePost={changePostStatus} />}
+                        <p>{blockedMe}</p>
+                        <button
+                            onClick={handleRequest}
+                            className="btn btn-info"
+                            disabled={loading}
+                        >
+                            {
+                                found.connection.following
+                                    ? "Unfollow"
+                                    : found.connection.followsMe
+                                        ? "Follow Back"
+                                        : found.connection.requested
+                                            ? "Cancel Request"
+                                            : "Follow"
+                            }
+                        </button>
+                        <button
+                            className='btn btn-danger'
+                            onClick={() => { handleBlockUser() }}
+                        >
+                            {
+                                found.connection.didIBlock
+                                    ? "UnBlock"
+                                    : "Block"
+                            }
+                        </button>
 
-                                <div className="d-flex justify-content-between text-center mt-5 mb-2">
-                                    <div>
-                                        <MDBCardText className="mb-1 h5">8471</MDBCardText>
-                                        <MDBCardText className="small text-muted mb-0">Wallets Balance</MDBCardText>
-                                    </div>
-                                    <div className="px-3">
-                                        <MDBCardText className="mb-1 h5">8512</MDBCardText>
-                                        <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
-                                    </div>
-                                    <div>
-                                        <MDBCardText className="mb-1 h5">4751</MDBCardText>
-                                        <MDBCardText className="small text-muted mb-0">Total Transactions</MDBCardText>
-                                    </div>
-                                </div>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
+                        <div className="d-flex justify-content-between text-center mt-5 mb-2">
+                            <div>
+                                <MDBCardText className="mb-1 h5">8471</MDBCardText>
+                                <MDBCardText className="small text-muted mb-0">Wallets Balance</MDBCardText>
+                            </div>
+                            <div className="px-3">
+                                <MDBCardText className="mb-1 h5">8512</MDBCardText>
+                                <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
+                            </div>
+                            <div>
+                                <MDBCardText className="mb-1 h5">4751</MDBCardText>
+                                <MDBCardText className="small text-muted mb-0">Total Transactions</MDBCardText>
+                            </div>
+                        </div>
+                    </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+
         </div>
     );
 }
